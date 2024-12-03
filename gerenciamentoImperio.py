@@ -3,6 +3,9 @@ from functions import *
 
 #Início Declarando variaveis iniciais
 
+#turno atual
+turno = 0
+
 #id do planeta atual
 planeta = 0
 #lista com nome dos planetas
@@ -180,6 +183,7 @@ while True==True:
 
     #fazer todos os planetas funcionarem ao mesmo tempo
     if choice == 'terminar':
+        turno =turno + 1
         #calcula o saldo total de cada turno
         i = 1
         while i <= len(listaPlanetas):
