@@ -3,7 +3,9 @@ from functions import *
 
 #Início Declarando variaveis iniciais
 
+#id do planeta atual
 planeta = 0
+#lista com nome dos planetas
 listaPlanetas = ['P1', 'P2', 'P3']
 
 #Créditos
@@ -25,7 +27,6 @@ gastos = [[30, 30, 0], [15, 20, 0],[15, 20, 0], [40, 40, 0], [25, 30, 0], [15, 2
 
 #qtd emprego p/ estruturas
 emprego = [0, 1, 1, 2, 2, 0]
-
 #manutenção de estruturas p/ emprego
 manutencao = [0, 1, 1, 0, 2, 2]
 
@@ -39,7 +40,7 @@ qtdEstruturas = [[[recursos[planeta][3],8], [2,2], [1,1], [2,1], [1,1], [40,1]],
 #menu
 while True==True:
     
-    #calcula manutenção e ganho
+    #calcula manutenção e ganho do planeta
     i = 0    
     economia[planeta+1][0] = qtdEstruturas [planeta][3][0] * 6
     economia[planeta+1][1] = 0
@@ -57,6 +58,7 @@ while True==True:
         recursos[planeta][4] =  recursos[planeta][4] + qtdEstruturas[planeta][i][0]
         i = i + 1
     recursos[planeta][4] =  recursos[planeta][4] - qtdEstruturas[planeta][0][0]
+    
     print("-=-=-=-=-=-=-=-=-=-=-=-=-")
     print(f"Planeta atual: {listaPlanetas[planeta]}")
     print(f"Saldo total: {economia[0]}")

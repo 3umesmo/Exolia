@@ -71,19 +71,31 @@ def gerenciarEstrutura(construcaoTipo, emprego, qtdEstruturas, recursos, planeta
     else:
         print('Sem estruturas desse tipo no planeta')
 
+###########################
 
+#função para enviar recursos entre planetas
+#Isso seria as rotas, mas no momento está muito "cru", apenas tirando a qtd de itens de um planeta e adicionando a msm qtd no outro
 def enviarRecurso(recurso, recursos, planeta, listaPlanetas, qtdEstruturas):
     qtdRecurso = int(input(f"quantidade de {recurso}: "))
+    #valida se o planeta atual tem esse recurso na qtd dada
     if qtdRecurso <= recursos[planeta][0]:
         planetaDestino = input("para qual planeta o recurso será enviado: ")
         posicaoPlaneta = 0
+        #procura na lista de planetas o planeta de destino
         for i in listaPlanetas:
+            #caso encontre o planeta e ele tenha espaço no armazem para a qtd de recursos:
             if planetaDestino == i and qtdEstruturas[posicaoPlaneta][5][0] >= qtdRecurso:
                 choice = input(f"deseja enviar {qtdRecurso} {recurso} para o planeta {i}? s ou n: ")
-                if choice == 's':
+                #'envia' os recursos
+                if choice == 's':  
+                    #retira a qtd de recursos do planeta de origem
                     recursos[planeta][0] = recursos[planeta][0] - qtdRecurso
+                    #aumenta o armazem do planeta de origem na qtd de itens tirados
                     recursos[posicaoPlaneta][0] = recursos[posicaoPlaneta][0] + qtdRecurso
+                    #adiciona a qtd de recursos do planeta de destino
                     qtdEstruturas[planeta][5][0] = qtdEstruturas[planeta][5][0] + qtdRecurso
+                    #reduz o armazem do planeta de destino na qtd de itens adicionados
                     qtdEstruturas[posicaoPlaneta][5][0] = qtdEstruturas[posicaoPlaneta][5][0] - qtdRecurso
                     print ("recurso enviado!")
+                break
             posicaoPlaneta = posicaoPlaneta + 1
