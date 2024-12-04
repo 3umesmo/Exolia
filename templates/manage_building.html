@@ -1,0 +1,48 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gerenciar Construção: {{ building['nome'] }}</title>
+    </head>
+    <body>
+        <h1>Gerenciar Construção: {{ building['nome'] }}</h1>
+
+        <!-- Formulário para designar trabalhadores -->
+        <form method="POST" action="">
+            <label for="trabalhadores">Número de Trabalhadores:</label>
+            <input type="number" id="trabalhadores" name="trabalhadores" min="0" max="{{ building['max_empregos'] }}" value="{{ building['empregos_atual'] }}"><br>
+
+            <button type="submit">Atualizar</button>
+        </form>
+
+        <!-- Exibição da produção -->
+        <h3>Produção:</h3>
+        <p>Produção por turno: 
+            {% if building['tipo'] == 'Fazenda' %}
+                {{ building['producao'] }} Comida
+            {% elif building['tipo'] == 'Mina' %}
+                {{ building['producao'] }} Minérios
+            {% elif building['tipo'] == 'Gerador' %}
+                {{ building['producao'] }} Créditos
+            {% endif %}
+        </p>
+
+        <!-- Exibição do consumo -->
+        <h3>Consumo:</h3>
+        <p>Consumo por trabalhador: 
+            {% if building['tipo'] == 'Fazenda' %}
+                1 Comida por trabalhador
+            {% endif %}
+        </p>
+
+        <a href="{{ url_for('planet_details', username=username, empire_name=empire_name, planet_name=planet_name) }}">Voltar para o Planeta</a>
+    </body>
+    </html>
+
+
+    <h3>Produção:</h3>
+    <p>Produção por turno: {{ building['producao'] }} {{ 'Comida' if building['tipo'] == 'Fazenda' else 'Minérios' if building['tipo'] == 'Mina' else 'Créditos' }}</p>
+    <a href="{{ url_for('planet_details', username=username, empire_name=empire_name, planet_name=planet_name) }}">Voltar para o Planeta</a>
+</body>
+</html>

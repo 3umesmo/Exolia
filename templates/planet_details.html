@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Planeta {{ planet['name'] }}</title>
+</head>
+<body>
+    <h1>Planeta: {{ planet['name'] }}</h1>
+    <p><strong>Habitação:</strong> {{ planet['details']['Habitação'] }}</p>
+    <p><strong>População:</strong> {{ planet['details']['População'] }}</p>
+    <p><strong>Número de Construções:</strong> {{ planet['details']['Número de Construções'] }}</p>
+    <h2>Construções</h2>
+    <ul>
+        <!-- Botão para adicionar uma nova construção -->
+        <a href="{{ url_for('add_building', username=username, empire_name=empire_name, planet_name=planet_name) }}">
+            <button>Adicionar Construção</button>
+        </a>
+
+        <h3>Construções Atuais:</h3>
+        <ul>
+            {% for building in planet['details']['Construções'] %}
+                <li>
+                    {{ building['nome'] }} ({{ building['tipo'] }})
+                    <a href="{{ url_for('manage_building', username=username, empire_name=empire_name, planet_name=planet_name, building_name=building['nome']) }}">Gerenciar</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </ul>
+    <p><strong>Manutenção Planetária:</strong> {{ planet['details']['Manutenção Planetária'] }}</p>
+    <a href="{{ url_for('empire_details', username=username, empire_name=empire_name) }}">Voltar para o Império</a>
+</body>
+</html>
