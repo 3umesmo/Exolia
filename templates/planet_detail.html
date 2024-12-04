@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do planeta: {{ planet_name }}</title>
+</head>
+<body>
+    <h1>Planeta {{ planet_name }}</h1>
+    <h4>Habitação: {{habitacao}}</h4>
+    <h4>população: {{pupulacao}}</h4>
+    <h4>Numero de construções: {{numConstrucoes}}</h4>
+    <h2>Construções: </h2>
+    <ul>
+        <p>Fazendas: {{numFazendas}}</p>    
+        <p>Minas: {{numMinas}}</p>
+        <p>Geradores: {{numGeradores}}</p>      
+        <p>Fabricas simples: {{numFabricasSimples}}</p>  
+        <p>Armazéns: {{numArmazens}}</p>        
+
+    </ul>    
+    <a href="create_structure?planet_name={{planet_name}}">Adicionar estrutura</a>
+
+    <h2>Recursos: </h2>
+    <ul>
+        <p>minerio: {{numMinerio}}</p>    
+        <p>alimento: {{numAlimento}}</p>
+        <p>componentes simples: {{numComponentesSimples}}</p>     
+    </ul>
+</body>
+</html>
