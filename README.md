@@ -1,2 +1,0 @@
-# Exolia
-projeto-Exólia👍👌

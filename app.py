@@ -172,7 +172,7 @@ def submit_planet():
 @app.route('/planet_detail', methods=['GET'])
 def planet_detail():
     planet_name = request.args.get('planet_name')
-    #indicando o arquivo json espeçifico do planeta
+    #indicando o arquivo json especifico do planeta
     FILEPATH_PLANETA = "{}.json".format(planet_name)
     empire_name = request.args.get('empire_name')
     if os.path.exists(FILEPATH_PRINCIPAL):
@@ -197,7 +197,6 @@ def planet_detail():
     numAlimento = data['alimento']
     numComponentesSimples = data['componentesSimples']
     numCombustivel = data['combustivel']
-    
 
 
     return render_template('planet_detail.html', empire_name=empire_name,planet_name=planet_name,habitacao=habitacao,populacao=populacao,
@@ -205,8 +204,73 @@ def planet_detail():
                            numFabricasSimples=numFabricasSimples,numArmazens=numArmazens,numMinerio=numMinerio,numAlimento=numAlimento,
                            numComponentesSimples=numComponentesSimples,numCombustivel=numCombustivel)
 
+@app.route('/create_structure', methods=['GET'])
+def create_structure():
+    planet_name = request.args.get('planet_name')
+    empire_name = request.args.get('empire_name')
+    return render_template('create_structure.html', planet_name=planet_name,empire_name=empire_name)
 
 
+@app.route('/submit_structure', methods=['POST'])
+def submit_structure():
+    planet_name = request.args.get('planet_name')
+    empire_name = request.args.get('empire_name')
+    #recebe o tipo de estrutura e a qtd dela
+    newStructure = request.form.to_dict()['structure_type']
+    qtdStructure = int(request.form.to_dict()['structure_qtd'])
+
+    #acessa o .json do planeta
+    FILEPATH_PLANETA = "{}.json".format(planet_name)
+    empire_name = request.args.get('empire_name')
+    if os.path.exists(FILEPATH_PRINCIPAL):
+        with open(FILEPATH_PRINCIPAL, "r") as f:
+            data = json.load(f)
+    
+    if os.path.exists(FILEPATH_PLANETA):
+        with open(FILEPATH_PLANETA, "r") as f:
+            data = json.load(f)
+            print(data)
+
+
+    #var 'item' indica que item do objeto .json será modificado
+    item = 'none'
+    if newStructure == 'farm':
+        item = 'numFazendas'
+    elif newStructure == 'mine':
+        item = 'numMinas'
+    elif newStructure == 'generator':
+        item = 'numGeradores'
+    elif newStructure == 'basic_factory':
+        item = 'numFabricasSimples'
+    elif newStructure == 'werehouse':
+        item = 'numArmazens'
+
+    #adiciona a qtd indicada ao item
+    data[item] = data[item] + qtdStructure
+
+    #salva as alterações
+    with open(FILEPATH_PLANETA, "w") as f:
+        json.dump(data, f, indent=4)
+    
+    
+    habitacao = data['habitacao']
+    populacao = data['populacao']
+    numConstrucoes = data['numConstrucoes']
+    numFazendas = data['numFazendas']
+    numMinas = data['numMinas']
+    numGeradores = data['numGeradores']
+    numFabricasSimples = data['numFabricasSimples']
+    numArmazens = data['numArmazens']
+    numMinerio = data['minerio']
+    numAlimento = data['alimento']
+    numComponentesSimples = data['componentesSimples']
+    numCombustivel = data['combustivel']
+
+    return render_template('planet_detail.html', empire_name=empire_name,planet_name=planet_name,habitacao=habitacao,populacao=populacao,
+                           numConstrucoes=numConstrucoes,numFazendas=numFazendas,numMinas=numMinas,numGeradores=numGeradores,
+                           numFabricasSimples=numFabricasSimples,numArmazens=numArmazens,numMinerio=numMinerio,numAlimento=numAlimento,
+                           numComponentesSimples=numComponentesSimples,numCombustivel=numCombustivel)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,16 @@
+<h1>Criar Estrutura</h1>
+<form action="/submit_structure?planet_name={{planet_name}}&empire_name={{empire_name}}" method="POST">
+    <label>Tipo de estrutura</label>
+    <select name="structure_type">
+        <option value="farm">Fazenda</option>
+        <option value="mine">Minas</option>
+        <option value="generator">Geradores</option>
+        <option value="basic_factory">Fabrica simples</option>
+        <option value="werehouse">Armazéns</option>
+    </select>
+    <label>Quantidade</label>
+    <input type="number" step="1" min="1" name="structure_qtd">
+    <br>
+    <button type="submit">Criar</button>
+</form>
+<a href="planet_detail?empire_name={{empire_name}}&planet_name={{planet_name}}"></a>
